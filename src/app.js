@@ -6,8 +6,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 const port = 3000;
+
+const accountData = fs.readFileSync(path.join(__dirname, 'json/accounts.json'),{encoding:'utf8', flag:'r'});
+const accounts = JSON.parse(accountData);
+const userData = fs.readFileSync(path.join(__dirname, 'json/users.json'),{encoding:'utf8', flag:'r'});
+const users = JSON.parse(userData);
 app.get('/', (req, res) => {
-    res.render('index',{ title: 'Index', profile: '/profile', Profile: 'Karthik',transfer:'/transfer', Transfer:'Transfer' });
+    res.render('index',{ title: 'Account Summary',accounts:accounts, profile: '/profile', Profile: 'Karthik',transfer:'/transfer', Transfer:'Transfer' });
+});
+app.get('/savings', (req, res) => {
+    res.render('account',{ accounts:accounts.savings});
+});
+app.get('/checking', (req, res) => {
+    res.render('account',{ accounts:accounts.checking});
+});
+app.get('/credit', (req, res) => {
+    res.render('account',{ accounts:accounts.credit});
+});
+app.get('/profile', (req, res) => {
+    res.render('profile',{ user: users[0]});
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
