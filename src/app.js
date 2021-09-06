@@ -42,7 +42,7 @@ app.get('/payment', (req, res) => {
 });
 app.post('/payment', (req, res) => {
     accounts.credit.balance = accounts.credit.balance - req.body.amount;
-    accounts.credit.available = parstInt(accounts.credit.available) + parseInt(req.body.amount);
+    accounts.credit.available = parseInt(accounts.credit.available) + parseInt(req.body.amount);
     const accountsJSON = JSON.stringify(accounts);
     fs.writeFileSync(path.join(__dirname, 'json/accounts.json'), accountsJSON,'utf8');
     res.render('payment',{ message: "Payment Successful", account: accounts.credit });
