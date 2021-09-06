@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({extended:true}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 const port = 3000;
@@ -25,6 +26,9 @@ app.get('/credit', (req, res) => {
 });
 app.get('/profile', (req, res) => {
     res.render('profile',{ user: users[0]});
+});
+app.get('/transfer', (req, res) => {
+    res.render('transfer',{ user: users[0]});
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
