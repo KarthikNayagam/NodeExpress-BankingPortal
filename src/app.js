@@ -30,6 +30,10 @@ app.get('/profile', (req, res) => {
 app.get('/transfer', (req, res) => {
     res.render('transfer',{ user: users[0]});
 });
+app.post('/transfer', (req, res) => {
+    accounts[req.body.from].balance = accounts[req.body.from].balance - req.body.amount;
+    accounts[req.body.to].balance = parseInt(accounts[req.body.to].balance) + parseInt(req.body.amount,10);
+});
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
