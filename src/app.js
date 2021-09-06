@@ -35,6 +35,7 @@ app.post('/transfer', (req, res) => {
     accounts[req.body.to].balance = parseInt(accounts[req.body.to].balance) + parseInt(req.body.amount,10);
     const accountsJSON = JSON.stringify(accounts);
     fs.writeFileSync(path.join(__dirname, 'json/accounts.json'), accountsJSON,'utf8');
+    res.render('transfer',{message: "Transfer Completed"})
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
